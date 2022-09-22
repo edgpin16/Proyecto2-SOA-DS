@@ -1,0 +1,4 @@
+node_modules/
+storage/
+
+#.env - En proyectos de la vida real, no debemos agregar al repositorio el archivo .env, pero para fines educativos y para que pueda funcionar, lo agregaremos
