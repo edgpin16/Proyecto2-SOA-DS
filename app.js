@@ -12,6 +12,8 @@ app.use(cors()); //Usamos cors, medida de seguridad que restringe solicitudes HT
 
 app.use(express.json()); //Middleware para cargas JSON
 
+app.use('/api', require('./routes')); //Invocamos las rutas de la API
+
 try{
     dbConnectSQL();
 }
@@ -22,8 +24,3 @@ catch(e){
 app.listen(port, () => {
     console.log(`Your server is ready in the port: ${port}`);
 });
-
-
-// app.use('/api', require('./routes')); //Invocamos las rutas de nuestra API
-// app.use(express.static('storage')); //static data, or public data
-// const ENGINE_DB = process.env.ENGINE_DB;
