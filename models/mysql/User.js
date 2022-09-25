@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize/types');
+const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../config/sequelize');
 
 const Sales = require('./Sale');
@@ -36,12 +36,16 @@ const User = sequelize.define(
         }
     },
     {
-        timestamps : true
-    }
+        timestamps : true,
+        tableName : 'users'
+    } 
 );
 
-User.hasMany(Sales, {
-    foreignKey : 'user_id'
-});
+User.associations = () => {
+    User.hasMany(Sales, {
+        as: 'sales',
+        foreignKey : 'user_id'
+    });
+}
 
 module.exports = User;

@@ -1,10 +1,10 @@
-const { DataTypes } = require('sequelize/types');
+const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../config/sequelize');
 
 const Sales = require('./Sale');
 
 const Person = sequelize.define(
-    'people',
+    'Person',
     {
         id: {
             type: DataTypes.INTEGER,
@@ -33,12 +33,16 @@ const Person = sequelize.define(
         }
     },
     {
-        timestamps : true
+        timestamps : true,
+        tableName : 'people'
     }
 );
 
-Person.hasMany(Sales, {
-    foreignKey : 'person_id'
-});
+Person.associations = () => {
+    Person.hasMany(Sales, {
+        as : 'sales',
+        foreignKey : 'person_id'
+    });
+}
 
 module.exports = Person;

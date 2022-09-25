@@ -1,4 +1,4 @@
-const { DataTypes } = require('sequelize/types');
+const { DataTypes } = require('sequelize');
 const { sequelize } = require('../../config/sequelize');
 
 const Category = require('./Category.js');
@@ -6,7 +6,7 @@ const Sales = require('./Sale');
 const SalesProducts = require('./SalesProducts');
 
 const Product = sequelize.define(
-    'products',
+    'Product',
     {
         id: {
             type: DataTypes.INTEGER,
@@ -47,11 +47,14 @@ const Product = sequelize.define(
         }
     },
     {
-        timestamps : true
+        timestamps : true,
+        tableName : 'products'
     }
 );
 
-Product.belongsTo(Category);
-Product.belongsToMany(Sales, { through : SalesProducts });
+// Product.belongsTo(Category);
+Product.associations = () => {
+    Product.belongsToMany(Sales, { through : SalesProducts });
+}
 
 module.exports = Product;
